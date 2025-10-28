@@ -3,9 +3,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Collection;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class Repository {
      */
     private static HashMap<String, String> _map = new HashMap<>();
 
+    // Инициализация данных
     static {
         initializeData();
     }
@@ -26,11 +24,11 @@ public class Repository {
      * Метод инициализации данных
      */
     private static void initializeData() {
-        _map.put("A", "101");
+        _map.put("A", "111");
         _map.put("B", "102");
         _map.put("C", "103");
         _map.put("D", "104");
-        _map.put("E", "105");
+        _map.put("E", "125");
         _map.put("F", "106");
         _map.put("G", "107");
         _map.put("H", "108");
@@ -42,7 +40,7 @@ public class Repository {
      * Метод возвращает итератор для коллекции
      * @return итератор пар ключ-значение
      */
-    public static Iterator<Map.Entry<String, String>> getIterator() {
+    public Iterator<Map.Entry<String, String>> getIterator() {
         return _map.entrySet().iterator();
     }
 
@@ -50,7 +48,7 @@ public class Repository {
      * Метод возвращает множество ключей
      * @return множество ключей
      */
-    public static Set<String> getKeys() {
+    public Set<String> getKeys() {
         return _map.keySet();
     }
 
@@ -58,7 +56,7 @@ public class Repository {
      * Метод возвращает коллекцию значений
      * @return коллекция значений
      */
-    public static Collection<String> getValues() {
+    public Collection<String> getValues() {
         return _map.values();
     }
 
@@ -66,47 +64,11 @@ public class Repository {
      * Метод возвращает список ключей в виде строк
      * @return список ключей
      */
-    public static String getKeysAsString() {
+    public String getKeysAsString() {
         List<String> keys = new ArrayList<>();
-        Iterator<Map.Entry<String, String>> iterator = _map.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, String> entry = iterator.next();
+        for (Map.Entry<String, String> entry : _map.entrySet()) {
             keys.add(entry.getKey());
         }
         return String.join("\n", keys);
-    }
-
-    /**
-     * Метод сохраняет полный отчет в файл
-     * @param filename имя файла
-     * @return true - если запись успешна, false - в противном случае
-     */
-    public static boolean saveToFile(String filename) {
-        try {
-            List<String> lines = new ArrayList<>();
-
-            Iterator<Map.Entry<String, String>> iterator = getIterator();
-            while (iterator.hasNext()) {
-                Map.Entry<String, String> entry = iterator.next();
-                lines.add(entry.getKey() + " = " + entry.getValue());
-            }
-            lines.add("");
-
-            lines.add("keys");
-            for (String key : getKeys()) {
-                lines.add(key);
-            }
-            lines.add("");
-
-            lines.add("values");
-            for (String value : getValues()) {
-                lines.add(value);
-            }
-
-            Files.write(Paths.get(filename), lines);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
     }
 }

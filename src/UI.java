@@ -22,14 +22,19 @@ public class UI {
         getInformationMessage();
 
         System.out.println("Список ключей:");
-        String keys = Repository.getKeysAsString();
+        String keys = OutputFileWriter._repository.getKeysAsString();
         System.out.println(keys);
 
-        boolean success = Repository.saveToFile("keys_report.txt");
-        if (success) {
-            System.out.println("Сохранено в файл keys_report.txt");
-        } else {
-            System.out.println("Ошибка при сохранении в файл");
+        try {
+            boolean success = OutputFileWriter.saveToFile("keys_report.txt");
+
+            if (success) {
+                System.out.println("Сохранено в файл keys_report.txt");
+            } else {
+                System.out.println("Ошибка при сохранении в файл");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
