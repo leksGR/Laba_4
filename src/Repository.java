@@ -26,16 +26,16 @@ public class Repository {
      * Метод инициализации данных
      */
     private static void initializeData() {
-        _map.put("A", "101");
-        _map.put("B", "102");
-        _map.put("C", "103");
-        _map.put("D", "104");
-        _map.put("E", "105");
-        _map.put("F", "106");
-        _map.put("G", "107");
-        _map.put("H", "108");
-        _map.put("I", "109");
-        _map.put("J", "110");
+        _map.put("apple", "яблоко");
+        _map.put("banana", "банан");
+        _map.put("orange", "апельсин");
+        _map.put("grape", "виноград");
+        _map.put("lemon", "лимон");
+        _map.put("peach", "персик");
+        _map.put("cherry", "вишня");
+        _map.put("plum", "слива");
+        _map.put("pear", "груша");
+        _map.put("melon", "дыня");
     }
 
     /**
@@ -68,7 +68,7 @@ public class Repository {
      */
     public static String getKeysAsString() {
         List<String> keys = new ArrayList<>();
-        Iterator<Map.Entry<String, String>> iterator = _map.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> iterator = getIterator();
         while (iterator.hasNext()) {
             Map.Entry<String, String> entry = iterator.next();
             keys.add(entry.getKey());
