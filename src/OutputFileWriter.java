@@ -7,7 +7,9 @@ import java.util.Map;
  */
 public class OutputFileWriter {
 
+    /** Статический экземпляр класса Репозиторий */
     public static Repository _repository = new Repository();
+
     /**
      * Метод сохраняет полный отчет в файл
      * @param filename имя файла
