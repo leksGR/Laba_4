@@ -2,6 +2,7 @@
  * Класс взаимодействия с пользователем
  */
 public class UI {
+
     /**
      * Конструктор по умолчанию
      */
@@ -22,11 +23,11 @@ public class UI {
         getInformationMessage();
 
         System.out.println("Список ключей:");
-        String keys = OutputFileWriter._repository.getKeysAsString();
+        String keys = OutputWriter._repository.getKeysAsString();
         System.out.println(keys);
 
         try {
-            boolean success = OutputFileWriter.saveToFile("keys_report.txt");
+            boolean success = OutputWriter.saveToFile("keys_report.txt");
 
             if (success) {
                 System.out.println("Сохранено в файл keys_report.txt");

@@ -10,6 +10,7 @@ import java.util.List;
  * Класс для работы с данными
  */
 public class Repository {
+
     /**
      * Коллекция HashMap, хранящая строки
      */
@@ -24,7 +25,7 @@ public class Repository {
      * Метод инициализации данных
      */
     private static void initializeData() {
-        _map.put("A", "111");
+        _map.put("A", "101");
         _map.put("B", "102");
         _map.put("C", "103");
         _map.put("D", "104");

@@ -5,13 +5,13 @@ import java.util.Map;
 /**
  * Класс для записи информации в файл
  */
-public class OutputFileWriter {
+public class OutputWriter {
 
     /** Статический экземпляр класса Репозиторий */
     public static Repository _repository = new Repository();
 
     /**
-     * Метод сохраняет полный отчет в файл
+     * Метод сохраняет информацию в файл
      * @param filename имя файла
      * @return true - если запись успешна, false - в противном случае
      */
