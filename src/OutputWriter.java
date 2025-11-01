@@ -3,12 +3,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Класс для записи информации в файл
+ * Абстрактный класс для записи информации в файл
  */
-public class OutputWriter {
+public abstract class OutputWriter {
 
     /** Статический экземпляр класса Репозиторий */
-    public static Repository _repository = new Repository();
+    private static final Repository _repository = new Repository();
 
     /**
      * Метод сохраняет информацию в файл

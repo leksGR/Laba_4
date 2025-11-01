@@ -1,12 +1,19 @@
+import java.util.Scanner;
+
 /**
  * Класс взаимодействия с пользователем
  */
 public class UI {
 
+    /** Объект класса Scanner для считывания пользовательских данных */
+    private final Scanner _sc;
+
     /**
      * Конструктор по умолчанию
      */
-    UI() {}
+    UI() {
+        _sc = new Scanner(System.in);
+    }
 
     /**
      * Выводит информационное сообщение
@@ -22,9 +29,9 @@ public class UI {
     public void run() {
         getInformationMessage();
 
-        System.out.println("Список ключей:");
+        /*System.out.println("Список ключей:");
         String keys = OutputWriter._repository.getKeysAsString();
-        System.out.println(keys);
+        System.out.println(keys);*/
 
         try {
             boolean success = OutputWriter.saveToFile("keys_report.txt");
@@ -35,7 +42,16 @@ public class UI {
                 System.out.println("Ошибка при сохранении в файл");
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
+    }
+
+    private void menu() {
+        System.out.println("Выберите действие: ");
+        System.out.println("1. Добавить пару ключ-значение");
+        System.out.println("2. Вывести содержимое репозитория");
+        System.out.println("3. Сохранить содержимое репозитория в файл");
+        System.out.println("Ваш выбор: ");
+        int choose = Integer.parseInt(_sc.nextLine());
     }
 }
