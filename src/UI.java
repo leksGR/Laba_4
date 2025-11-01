@@ -29,12 +29,8 @@ public class UI {
     public void run() {
         getInformationMessage();
 
-        /*System.out.println("Список ключей:");
-        String keys = OutputWriter._repository.getKeysAsString();
-        System.out.println(keys);*/
-
         try {
-            boolean success = OutputWriter.saveToFile("keys_report.txt");
+            boolean success = OutputWriter.saveToFile("keys.txt");
 
             if (success) {
                 System.out.println("Сохранено в файл keys_report.txt");

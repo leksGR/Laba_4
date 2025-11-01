@@ -1,5 +1,6 @@
 import java.io. *;
-import java.util.Iterator;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -7,32 +8,45 @@ import java.util.Map;
  */
 public abstract class OutputWriter {
 
-    /** Статический экземпляр класса Репозиторий */
-    private static final Repository _repository = new Repository();
-
     /**
      * Метод сохраняет информацию в файл
      * @param filename имя файла
      * @return true - если запись успешна, false - в противном случае
      */
-    public static boolean saveToFile(String filename) throws FileNotFoundException {
-        FileOutputStream fos=new FileOutputStream(filename);
-        try (PrintStream outputWriter = new PrintStream(fos)) {
+    public static boolean saveToFile(String filename) {
+        if (!isFileExist(filename)) {
+            return false;
+        }
 
-            Iterator<Map.Entry<String, String>> iterator = _repository.getIterator();
-            while (iterator.hasNext()) {
-                Map.Entry<String, String> entry = iterator.next();
-                outputWriter.println(entry.getKey() + " = " + entry.getValue());
+        try {
+
+            PrintStream outputWriter = new PrintStream(Files.newOutputStream(Paths.get(filename)));
+
+            HashMapIterator iterator = new HashMapIterator(Key._keys);
+            while (iterator.hasNextKey()) {
+                Map.Entry<String, Key> entry = iterator.nextKey();
+                outputWriter.println(entry.getKey());
             }
 
             outputWriter.println();
-            outputWriter.println("keys: " + String.join(" ", _repository.getKeys()));
-
-            outputWriter.println();
-            outputWriter.println("values: " + String.join(" ", _repository.getValues()));
+            outputWriter.println("keys: " + String.join(" ", Key.getKeys()));
 
             outputWriter.close();
             return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Метод проверки существования файла
+     * @param filename имя файла
+     * @return true - если существует, false - в противном случае
+     */
+    public static boolean isFileExist(String filename) {
+        File f = new File(filename);
+        return f.exists();
+    }
+
 }
