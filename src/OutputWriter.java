@@ -1,6 +1,4 @@
 import java.io. *;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Map;
 
 /**
@@ -14,13 +12,9 @@ public abstract class OutputWriter {
      * @return true - если запись успешна, false - в противном случае
      */
     public static boolean saveToFile(String filename) {
-        if (!isFileExist(filename)) {
-            return false;
-        }
 
-        try {
-
-            PrintStream outputWriter = new PrintStream(Files.newOutputStream(Paths.get(filename)));
+        try (FileOutputStream fos = new FileOutputStream(filename)) {
+            PrintStream outputWriter = new PrintStream(fos);
 
             HashMapIterator iterator = new HashMapIterator(Key._keys);
             while (iterator.hasNextKey()) {
