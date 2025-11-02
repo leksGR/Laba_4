@@ -44,10 +44,11 @@ public class Key {
     }
 
     /**
-     * Статический метод добавления ключей в коллекцию
-     * @param k
+     * Статический метод добавления ключей в коллекцию по значению
+     * @param value значения ключа
      */
-    private static void putNew(Key k) {
+    public static void putNewByValue(String value) {
+        Key k = new Key(value);
         _keys.put(k._value, k);
     }
 
@@ -57,5 +58,17 @@ public class Key {
      */
     public static Set<String> getKeys() {
         return _keys.keySet();
+    }
+
+    /**
+     * Метод выводит все ключей
+     * @return строка ключей
+     */
+    public static String showAll() {
+        HashMapIterator iterator = new HashMapIterator(Key._keys);
+        if (iterator.length() == 0)
+            return "Список пуст!";
+        String message = "keys: " + String.join(" ", Key.getKeys());
+        return message;
     }
 }
