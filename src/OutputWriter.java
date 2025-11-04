@@ -15,16 +15,7 @@ public abstract class OutputWriter {
 
         try (FileOutputStream fos = new FileOutputStream(filename)) {
             PrintStream outputWriter = new PrintStream(fos);
-
-            HashMapIterator iterator = new HashMapIterator(Key._keys);
-            while (iterator.hasNextKey()) {
-                Map.Entry<String, Key> entry = iterator.nextKey();
-                outputWriter.println(entry.getKey());
-            }
-
-            outputWriter.println();
-            outputWriter.println("keys: " + String.join(" ", Key.getKeys()));
-
+            outputWriter.println(Key.showAll());
             outputWriter.close();
             return true;
 

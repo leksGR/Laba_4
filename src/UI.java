@@ -72,8 +72,8 @@ public class UI {
     private void addNewKey() {
         System.out.print("Введите значение ключа: ");
         String value = _sc.nextLine();
-        Key.putNewByValue(value);
-        System.out.println("Ключ успешно добавлен!");
+        String message = Key.putNewByValue(value);
+        System.out.println(message);
         showAllKeys();
     }
 
@@ -94,7 +94,12 @@ public class UI {
         boolean success = OutputWriter.isFileExist(filename);
 
         if (success) {
-            System.out.println("Сохранено в файл " + filename);
+            success = OutputWriter.saveToFile(filename);
+            if (success) {
+                System.out.println("Сохранено в файл " + filename);
+            } else {
+                System.out.println("Ошибка сохранения в файл " + filename);
+            }
         } else {
             System.out.println("Ошибка! Данный файл не существует.\n" +
                     "Хотите создать файл и сохранить туда информация о ключах?");
