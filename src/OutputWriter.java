@@ -1,0 +1,46 @@
+import java.io. *;
+import java.util.Map;
+
+/**
+ * Абстрактный класс для записи информации в файл
+ */
+public abstract class OutputWriter {
+
+    /**
+     * Метод сохраняет информацию в файл
+     * @param filename имя файла
+     * @return true - если запись успешна, false - в противном случае
+     */
+    public static boolean saveToFile(String filename) {
+
+        try (FileOutputStream fos = new FileOutputStream(filename)) {
+            PrintStream outputWriter = new PrintStream(fos);
+
+            HashMapIterator iterator = new HashMapIterator(Key._keys);
+            while (iterator.hasNextKey()) {
+                Map.Entry<String, Key> entry = iterator.nextKey();
+                outputWriter.println(entry.getKey());
+            }
+
+            outputWriter.println();
+            outputWriter.println("keys: " + String.join(" ", Key.getKeys()));
+
+            outputWriter.close();
+            return true;
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Метод проверки существования файла
+     * @param filename имя файла
+     * @return true - если существует, false - в противном случае
+     */
+    public static boolean isFileExist(String filename) {
+        File f = new File(filename);
+        return f.exists();
+    }
+
+}
