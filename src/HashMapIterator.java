@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Класс итератора для HashMap
@@ -8,7 +7,7 @@ import java.util.Map;
 public class HashMapIterator extends HashMap {
 
     /** Статический объект интерфейса итератор */
-    private static Iterator<Map.Entry<String, Key>> _iterator;
+    private static Iterator<Entry<String, Key>> _iterator;
 
     /**
      * Конструктор с параметрами
@@ -21,7 +20,7 @@ public class HashMapIterator extends HashMap {
      * Метод, возвращающий следующий элемент структуры
      * @return элемент структуры
      */
-    public Map.Entry<String, Key> nextKey() {
+    public Entry<String, Key> nextKey() {
         return _iterator.next();
     }
 

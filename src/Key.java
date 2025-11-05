@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Map;
 
 /**
  * Класс ключ
@@ -10,7 +10,7 @@ public class Key {
     private String _value;
 
     /** Коллекция ключей */
-    public final static HashMap<String, Key> _keys = new HashMap<>();
+    public final static HashMap<String, Key> _KEYS = new HashMap<>();
 
     /**
      * Конструктор по умолчанию
@@ -36,28 +36,44 @@ public class Key {
      * Статический метод инициализации коллекции значениями
      */
     private static void initializeData() {
-        Key key1 = new Key("A");
-        Key key2 = new Key("B");
-        //...//
-        _keys.put(key1._value, key1);
-        _keys.put(key2._value, key2);
+        _KEYS.put("A", new Key("A"));
+        _KEYS.put("B", new Key("B"));
+        _KEYS.put("C", new Key("C"));
+        _KEYS.put("D", new Key("D"));
+        _KEYS.put("E", new Key("E"));
+        _KEYS.put("F", new Key("F"));
+        _KEYS.put("G", new Key("G"));
+        _KEYS.put("H", new Key("H"));
+        _KEYS.put("I", new Key("I"));
+        _KEYS.put("J", new Key("J"));
+    }
+
+    /**
+     * Нестатический метод возвращает значение ключа
+     * @return значение ключа
+     */
+    public String getValue() {
+        return this._value;
+    }
+
+    /**
+     * Нестатический метод проверяет, является ли ключ пустым
+     * @return true если ключ пустой, false в противном случае
+     */
+    public boolean isEmpty() {
+        return this._value == null || this._value.isEmpty();
     }
 
     /**
      * Статический метод добавления ключей в коллекцию по значению
      * @param value значения ключа
      */
-    public static void putNewByValue(String value) {
+    public static String putNewByValue(String value) {
+        if (value == null || value.trim().isEmpty())
+            return "У ключа не может быть пустое значение!";
         Key k = new Key(value);
-        _keys.put(k._value, k);
-    }
-
-    /**
-     * Статический метод, возвращает коллекцию ключей
-     * @return коллекция ключей
-     */
-    public static Set<String> getKeys() {
-        return _keys.keySet();
+        _KEYS.put(k.getValue(), k);
+        return "Ключ успешно добавлен";
     }
 
     /**
@@ -65,10 +81,20 @@ public class Key {
      * @return строка ключей
      */
     public static String showAll() {
-        HashMapIterator iterator = new HashMapIterator(Key._keys);
-        if (iterator.length() == 0)
+        HashMapIterator iterator = new HashMapIterator(Key._KEYS);
+        if (!iterator.hasNextKey())
             return "Список пуст!";
-        String message = "keys: " + String.join(" ", Key.getKeys());
-        return message;
+
+        StringBuilder sb = new StringBuilder("keys:\n");
+
+        while (iterator.hasNextKey()) {
+            Map.Entry<String, Key> entry = iterator.nextKey();
+            Key key = entry.getValue();
+
+            if (!key.isEmpty()) {
+                sb.append(key.getValue()).append("\n");
+            }
+        }
+        return sb.toString();
     }
 }

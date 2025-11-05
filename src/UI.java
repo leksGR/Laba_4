@@ -6,13 +6,13 @@ import java.util.Scanner;
 public class UI {
 
     /** Объект класса Scanner для считывания пользовательских данных */
-    private final Scanner _sc;
+    private final Scanner _SC;
 
     /**
      * Конструктор по умолчанию
      */
     UI() {
-        _sc = new Scanner(System.in);
+        _SC = new Scanner(System.in);
     }
 
     /**
@@ -29,27 +29,29 @@ public class UI {
     public void run() {
         getInformationMessage();
         menu();
-        try {
-            int choose = Integer.parseInt(_sc.nextLine());
-            switch (choose) {
-                case 1:
-                    addNewKey();
-                    break;
-                case 2:
-                    showAllKeys();
-                    break;
-                case 3:
-                    uploadToFile();
-                    break;
-                case 0:
-                    System.out.println("Вы вышли из программы!");
-                    return;
-                default:
-                    System.out.println("Выбор не распознан!");
+        String choose = _SC.nextLine();
+        while (!choose.isEmpty()) {
+            try {
+                switch (choose) {
+                    case "1":
+                        addNewKey();
+                        break;
+                    case "2":
+                        showAllKeys();
+                        break;
+                    case "3":
+                        uploadToFile();
+                        break;
+                    default:
+                        System.out.println("Выбор не распознан!");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            menu();
+            choose = _SC.nextLine();
         }
+        System.out.println("Вы вышли из программы!");
     }
 
     /**
@@ -60,7 +62,7 @@ public class UI {
         System.out.println("1. Добавить новый ключ");
         System.out.println("2. Вывести содержимое репозитория");
         System.out.println("3. Сохранить содержимое репозитория в файл");
-        System.out.println("0. Выход");
+        System.out.println("Для выхода введите пустую строку...");
         System.out.print("Ваш выбор: ");
     }
 
@@ -69,9 +71,9 @@ public class UI {
      */
     private void addNewKey() {
         System.out.print("Введите значение ключа: ");
-        String value = _sc.nextLine();
-        Key.putNewByValue(value);
-        System.out.println("Ключ успешно добавлен!");
+        String value = _SC.nextLine();
+        String message = Key.putNewByValue(value);
+        System.out.println(message);
         showAllKeys();
     }
 
@@ -88,21 +90,26 @@ public class UI {
      */
     private void uploadToFile() {
         System.out.print("Введите название файла: ");
-        String filename = _sc.nextLine();
+        String filename = _SC.nextLine();
         boolean success = OutputWriter.isFileExist(filename);
 
         if (success) {
-            System.out.println("Сохранено в файл " + filename);
+            success = OutputWriter.saveToFile(filename);
+            if (success) {
+                System.out.println("Сохранено в файл " + filename);
+            } else {
+                System.out.println("Ошибка сохранения в файл " + filename);
+            }
         } else {
             System.out.println("Ошибка! Данный файл не существует.\n" +
                     "Хотите создать файл и сохранить туда информация о ключах?");
             System.out.println("1. Да");
             System.out.println("2. Нет");
             System.out.print("Ваш выбор: ");
-            int choose = Integer.parseInt(_sc.nextLine());
+            String choose = _SC.nextLine();
 
             switch(choose) {
-                case 1:
+                case "1":
                     success = OutputWriter.saveToFile(filename);
                     if (success) {
                         System.out.println("Сохранено в файл " + filename);
@@ -110,7 +117,7 @@ public class UI {
                         System.out.println("Ошибка сохранения в файл " + filename);
                     }
                     break;
-                case 2:
+                case "2":
                     break;
                 default:
                     System.out.println("Выбор не распознан!");
