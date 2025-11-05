@@ -60,8 +60,8 @@ public class UI {
     private void menu() {
         System.out.println("Выберите действие: ");
         System.out.println("1. Добавить новый ключ");
-        System.out.println("2. Вывести содержимое репозитория");
-        System.out.println("3. Сохранить содержимое репозитория в файл");
+        System.out.println("2. Вывести содержимое коллекции");
+        System.out.println("3. Сохранить содержимое коллекции в файл");
         System.out.println("Для выхода введите пустую строку...");
         System.out.print("Ваш выбор: ");
     }
@@ -106,10 +106,10 @@ public class UI {
             System.out.println("1. Да");
             System.out.println("2. Нет");
             System.out.print("Ваш выбор: ");
-            int choose = Integer.parseInt(_sc.nextLine());
+            String choose = _sc.nextLine();
 
             switch(choose) {
-                case 1:
+                case "1":
                     success = OutputWriter.saveToFile(filename);
                     if (success) {
                         System.out.println("Сохранено в файл " + filename);
@@ -117,7 +117,7 @@ public class UI {
                         System.out.println("Ошибка сохранения в файл " + filename);
                     }
                     break;
-                case 2:
+                case "2":
                     break;
                 default:
                     System.out.println("Выбор не распознан!");

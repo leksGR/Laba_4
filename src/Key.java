@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Map;
 
 /**
@@ -37,11 +36,16 @@ public class Key {
      * Статический метод инициализации коллекции значениями
      */
     private static void initializeData() {
-        Key key1 = new Key("A");
-        Key key2 = new Key("B");
-
-        _keys.put(key1._value, key1);
-        _keys.put(key2._value, key2);
+        _keys.put("A", new Key("A"));
+        _keys.put("B", new Key("B"));
+        _keys.put("C", new Key("C"));
+        _keys.put("D", new Key("D"));
+        _keys.put("E", new Key("E"));
+        _keys.put("F", new Key("F"));
+        _keys.put("G", new Key("G"));
+        _keys.put("H", new Key("H"));
+        _keys.put("I", new Key("I"));
+        _keys.put("J", new Key("J"));
     }
 
     /**
@@ -68,7 +72,7 @@ public class Key {
         if (value == null || value.trim().isEmpty())
             return "У ключа не может быть пустое значение!";
         Key k = new Key(value);
-        _keys.put(k.getValue(), k);
+        _keys.put(k._value, k);
         return "Ключ успешно добавлен";
     }
 

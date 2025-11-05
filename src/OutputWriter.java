@@ -1,5 +1,4 @@
 import java.io. *;
-import java.util.Map;
 
 /**
  * Абстрактный класс для записи информации в файл
